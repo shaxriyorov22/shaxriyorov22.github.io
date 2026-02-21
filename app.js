@@ -1,43 +1,49 @@
 const $ = (q, root = document) => root.querySelector(q);
 const $$ = (q, root = document) => Array.from(root.querySelectorAll(q));
 
-/* Year */
+/* Dynamic Year */
 const yearEl = $("#year");
-if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-/* Nav glass on scroll */
+/* Glassmorphism Navbar Scroll Effect */
 const nav = $("#nav");
 const onScroll = () => {
   if (!nav) return;
-  nav.classList.toggle("is-scrolled", window.scrollY > 10);
+  nav.classList.toggle("is-scrolled", window.scrollY > 20);
 };
-onScroll();
 window.addEventListener("scroll", onScroll, { passive: true });
+onScroll(); // Init
 
-/* Smooth scroll with fixed nav offset */
-const navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--navH")) || 68;
-$$('a[href^="#"]').forEach(a => {
-  a.addEventListener("click", (e) => {
-    const id = a.getAttribute("href");
-    if (!id || id.length < 2) return;
+/* Smooth Scroll with exact offset */
+const getNavHeight = () => nav ? nav.offsetHeight : 72;
+$$('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener("click", (e) => {
+    const id = anchor.getAttribute("href");
+    if (!id || id === "#") return;
     const target = document.querySelector(id);
     if (!target) return;
+    
     e.preventDefault();
-    const y = target.getBoundingClientRect().top + window.scrollY - navH - 10;
-    window.scrollTo({ top: y, behavior: "smooth" });
+    const targetPosition = target.getBoundingClientRect().top + window.scrollY - getNavHeight() - 20;
+    window.scrollTo({ top: targetPosition, behavior: "smooth" });
   });
 });
 
-/* Reveal: fade-up */
+/* Blur-Reveal Staggered Animations */
 const reveals = $$(".reveal");
 const io = new IntersectionObserver((entries) => {
-  for (const ent of entries) {
-    if (ent.isIntersecting) ent.target.classList.add("is-visible");
-  }
-}, { threshold: 0.12 });
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("is-visible");
+      // Optional: unobserve after reveal to keep it visible
+      io.unobserve(entry.target); 
+    }
+  });
+}, { rootMargin: "0px 0px -50px 0px", threshold: 0.1 });
+
 reveals.forEach(el => io.observe(el));
 
-/* Modal */
+/* Modal Logic */
 const modal = $("#modal");
 const modalText = $("#modalText");
 
@@ -56,34 +62,34 @@ const closeModal = () => {
 
 if (modal) {
   modal.addEventListener("click", (e) => {
-    const t = e.target;
-    if (t && t.hasAttribute && t.hasAttribute("data-close")) closeModal();
+    if (e.target.hasAttribute("data-close") || e.target.classList.contains("modal__backdrop")) {
+      closeModal();
+    }
   });
   window.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") closeModal();
+    if (e.key === "Escape" && modal.classList.contains("is-open")) closeModal();
   });
 }
 
-/* Contact form (Formspree) */
+/* Contact Form Handling */
 const form = $("#contactForm");
 if (form) {
   form.addEventListener("submit", async (e) => {
-    const action = form.getAttribute("action") || "";
+    const action = form.getAttribute("action");
 
-    // If user didn't set Formspree id yet
-    if (action.includes("YOUR_FORMSPREE_ID")) {
+    if (!action || action.includes("YOUR_FORMSPREE_ID")) {
       e.preventDefault();
-      openModal("Replace YOUR_FORMSPREE_ID in index.html to enable submissions.");
+      openModal("Birlashtirish uchun HTML faylida Formspree ID ni o'zgartiring.");
       return;
     }
 
     e.preventDefault();
-
     const submitBtn = form.querySelector('button[type="submit"]');
-    const prevText = submitBtn ? submitBtn.textContent : "Send Message";
+    const originalText = submitBtn ? submitBtn.textContent : "Send";
+    
     if (submitBtn) {
       submitBtn.disabled = true;
-      submitBtn.textContent = "Sending…";
+      submitBtn.textContent = "Sending...";
     }
 
     try {
@@ -95,17 +101,16 @@ if (form) {
 
       if (res.ok) {
         form.reset();
-        openModal("I’ll reply as soon as possible.");
-        setTimeout(closeModal, 2000);
+        openModal("Message delivered. I'll get back to you soon.");
       } else {
-        openModal("Something went wrong. Try Email/Telegram instead.");
+        openModal("Something went wrong. Try Telegram.");
       }
-    } catch {
-      openModal("Network error. Try Email/Telegram instead.");
+    } catch (err) {
+      openModal("Network error. Try Telegram.");
     } finally {
       if (submitBtn) {
         submitBtn.disabled = false;
-        submitBtn.textContent = prevText;
+        submitBtn.textContent = originalText;
       }
     }
   });
