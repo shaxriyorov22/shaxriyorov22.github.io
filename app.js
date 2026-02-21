@@ -1,96 +1,85 @@
-const $ = (q, root = document) => root.querySelector(q);
-const $$ = (q, root = document) => Array.from(root.querySelectorAll(q));
+const $ = (q) => document.querySelector(q);
+const $$ = (q) => document.querySelectorAll(q);
 
-/* Dynamic Year */
-const yearEl = $("#year");
-if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-/* Glassmorphism Navbar Scroll Effect */
+/* Nav Scroll */
 const nav = $("#nav");
-const onScroll = () => {
-  if (!nav) return;
-  nav.classList.toggle("is-scrolled", window.scrollY > 20);
-};
-window.addEventListener("scroll", onScroll, { passive: true });
-onScroll(); // Init
+window.addEventListener("scroll", () => {
+  if (nav) nav.classList.toggle("is-scrolled", window.scrollY > 20);
+});
 
-/* Smooth Scroll with exact offset */
-const getNavHeight = () => nav ? nav.offsetHeight : 72;
+/* Smooth Scroll */
 $$('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener("click", (e) => {
-    const id = anchor.getAttribute("href");
-    if (!id || id === "#") return;
-    const target = document.querySelector(id);
-    if (!target) return;
-    
+  anchor.addEventListener("click", function (e) {
     e.preventDefault();
-    const targetPosition = target.getBoundingClientRect().top + window.scrollY - getNavHeight() - 20;
-    window.scrollTo({ top: targetPosition, behavior: "smooth" });
+    const target = $(this.getAttribute("href"));
+    if (target) window.scrollTo({ top: target.offsetTop - 100, behavior: "smooth" });
   });
 });
 
-/* Blur-Reveal Staggered Animations */
-const reveals = $$(".reveal");
-const io = new IntersectionObserver((entries) => {
+/* Reveal Animations */
+const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add("is-visible");
-      // Optional: unobserve after reveal to keep it visible
-      io.unobserve(entry.target); 
+      observer.unobserve(entry.target);
     }
   });
-}, { rootMargin: "0px 0px -50px 0px", threshold: 0.1 });
+}, { threshold: 0.1 });
+$$('.reveal').forEach(el => observer.observe(el));
 
-reveals.forEach(el => io.observe(el));
+/* Index Floating Image Hover Effect */
+const preview = $("#indexPreview");
+const previewImg = $("#indexPreviewImg");
+const indexItems = $$(".index-item");
 
-/* Modal Logic */
-const modal = $("#modal");
-const modalText = $("#modalText");
+if (preview && indexItems.length > 0 && window.innerWidth > 768) {
+  indexItems.forEach(item => {
+    item.addEventListener("mouseenter", (e) => {
+      const imgSrc = item.getAttribute("data-image");
+      if (imgSrc) {
+        previewImg.src = imgSrc;
+        preview.classList.add("is-active");
+      }
+    });
+    
+    item.addEventListener("mousemove", (e) => {
+      // Rasmni sichqoncha orqasidan ergashtirish
+      preview.style.left = e.clientX + 20 + "px";
+      preview.style.top = e.clientY + 20 + "px";
+    });
 
-const openModal = (text) => {
-  if (!modal) return;
-  if (modalText && text) modalText.textContent = text;
-  modal.classList.add("is-open");
-  modal.setAttribute("aria-hidden", "false");
-};
-
-const closeModal = () => {
-  if (!modal) return;
-  modal.classList.remove("is-open");
-  modal.setAttribute("aria-hidden", "true");
-};
-
-if (modal) {
-  modal.addEventListener("click", (e) => {
-    if (e.target.hasAttribute("data-close") || e.target.classList.contains("modal__backdrop")) {
-      closeModal();
-    }
-  });
-  window.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && modal.classList.contains("is-open")) closeModal();
+    item.addEventListener("mouseleave", () => {
+      preview.classList.remove("is-active");
+    });
   });
 }
 
-/* Contact Form Handling */
+/* Modal and Form Logic */
+const modal = $("#modal");
+const openModal = () => { modal.classList.add("is-open"); };
+const closeModal = () => { modal.classList.remove("is-open"); };
+
+if (modal) {
+  modal.addEventListener("click", (e) => {
+    if (e.target.hasAttribute("data-close") || e.target.classList.contains("modal__backdrop")) closeModal();
+  });
+}
+
 const form = $("#contactForm");
 if (form) {
   form.addEventListener("submit", async (e) => {
     const action = form.getAttribute("action");
-
-    if (!action || action.includes("YOUR_FORMSPREE_ID")) {
+    if (action.includes("YOUR_FORMSPREE_ID")) {
       e.preventDefault();
-      openModal("Birlashtirish uchun HTML faylida Formspree ID ni o'zgartiring.");
+      alert("Formspree ID ulanmagan!");
       return;
     }
 
     e.preventDefault();
-    const submitBtn = form.querySelector('button[type="submit"]');
-    const originalText = submitBtn ? submitBtn.textContent : "Send";
-    
-    if (submitBtn) {
-      submitBtn.disabled = true;
-      submitBtn.textContent = "Sending...";
-    }
+    const btn = form.querySelector('button[type="submit"]');
+    const originalText = btn.textContent;
+    btn.textContent = "Sending...";
+    btn.disabled = true;
 
     try {
       const res = await fetch(action, {
@@ -98,20 +87,15 @@ if (form) {
         body: new FormData(form),
         headers: { "Accept": "application/json" }
       });
-
       if (res.ok) {
         form.reset();
-        openModal("Message delivered. I'll get back to you soon.");
-      } else {
-        openModal("Something went wrong. Try Telegram.");
+        openModal();
       }
     } catch (err) {
-      openModal("Network error. Try Telegram.");
+      alert("Xatolik yuz berdi. Iltimos Telegram orqali bog'laning.");
     } finally {
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.textContent = originalText;
-      }
+      btn.textContent = originalText;
+      btn.disabled = false;
     }
   });
 }
