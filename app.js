@@ -1,101 +1,148 @@
-const $ = (q) => document.querySelector(q);
-const $$ = (q) => document.querySelectorAll(q);
+document.addEventListener("DOMContentLoaded", () => {
+  const body = document.body;
+  const nav = document.getElementById("nav");
+  let lastScrollY = window.scrollY;
 
-/* Nav Scroll */
-const nav = $("#nav");
-window.addEventListener("scroll", () => {
-  if (nav) nav.classList.toggle("is-scrolled", window.scrollY > 20);
-});
+  // --- PRELOADER SIMULATSIYASI ---
+  // Haqiqiy resurslar yuklanishini kutmasdan, "tizim ishga tushishi" effektini beramiz
+  setTimeout(() => {
+    body.classList.add("loaded");
+    body.classList.remove("loading");
+  }, 2500); // 2.5 soniya "yuklanish"
 
-/* Smooth Scroll */
-$$('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener("click", function (e) {
-    e.preventDefault();
-    const target = $(this.getAttribute("href"));
-    if (target) window.scrollTo({ top: target.offsetTop - 100, behavior: "smooth" });
-  });
-});
+  // --- NAVIGATSIYA SKROLL EFFEKTI ---
+  const handleScroll = () => {
+    const currentScrollY = window.scrollY;
 
-/* Reveal Animations */
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("is-visible");
-      observer.unobserve(entry.target);
+    // Pastga skroll qilganda menyuni yashirish (agar tepada bo'lmasa)
+    if (currentScrollY > lastScrollY && currentScrollY > 100) {
+      nav.classList.add("is-hidden");
+    } else {
+      nav.classList.remove("is-hidden");
     }
-  });
-}, { threshold: 0.1 });
-$$('.reveal').forEach(el => observer.observe(el));
 
-/* Index Floating Image Hover Effect */
-const preview = $("#indexPreview");
-const previewImg = $("#indexPreviewImg");
-const indexItems = $$(".index-item");
+    // Tepadan tushganda shisha effektini kuchaytirish
+    if (currentScrollY > 50) {
+      nav.classList.add("is-scrolled");
+    } else {
+      nav.classList.remove("is-scrolled");
+    }
 
-if (preview && indexItems.length > 0 && window.innerWidth > 768) {
-  indexItems.forEach(item => {
-    item.addEventListener("mouseenter", (e) => {
-      const imgSrc = item.getAttribute("data-image");
-      if (imgSrc) {
-        previewImg.src = imgSrc;
-        preview.classList.add("is-active");
-      }
-    });
-    
-    item.addEventListener("mousemove", (e) => {
-      // Rasmni sichqoncha orqasidan ergashtirish
-      preview.style.left = e.clientX + 20 + "px";
-      preview.style.top = e.clientY + 20 + "px";
-    });
+    lastScrollY = currentScrollY;
+  };
 
-    item.addEventListener("mouseleave", () => {
-      preview.classList.remove("is-active");
-    });
-  });
-}
+  window.addEventListener("scroll", handleScroll, { passive: true });
 
-/* Modal and Form Logic */
-const modal = $("#modal");
-const openModal = () => { modal.classList.add("is-open"); };
-const closeModal = () => { modal.classList.remove("is-open"); };
-
-if (modal) {
-  modal.addEventListener("click", (e) => {
-    if (e.target.hasAttribute("data-close") || e.target.classList.contains("modal__backdrop")) closeModal();
-  });
-}
-
-const form = $("#contactForm");
-if (form) {
-  form.addEventListener("submit", async (e) => {
-    const action = form.getAttribute("action");
-    if (action.includes("YOUR_FORMSPREE_ID")) {
+  // --- SILLIQ SKROLL (Smooth Scroll) ---
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener("click", function (e) {
       e.preventDefault();
-      alert("Formspree ID ulanmagan!");
-      return;
-    }
-
-    e.preventDefault();
-    const btn = form.querySelector('button[type="submit"]');
-    const originalText = btn.textContent;
-    btn.textContent = "Sending...";
-    btn.disabled = true;
-
-    try {
-      const res = await fetch(action, {
-        method: "POST",
-        body: new FormData(form),
-        headers: { "Accept": "application/json" }
-      });
-      if (res.ok) {
-        form.reset();
-        openModal();
+      const targetId = this.getAttribute("href");
+      if (targetId === "#") return;
+      const targetElement = document.querySelector(targetId);
+      if (targetElement) {
+        // Navigatsiya balandligini hisobga olish
+        const navHeight = getComputedStyle(document.documentElement).getPropertyValue('--nav-height').trim().replace('px','') || 90;
+        const targetPosition = targetElement.offsetTop - parseInt(navHeight) - 20;
+        window.scrollTo({
+          top: targetPosition,
+          behavior: "smooth"
+        });
       }
-    } catch (err) {
-      alert("Xatolik yuz berdi. Iltimos Telegram orqali bog'laning.");
-    } finally {
-      btn.textContent = originalText;
-      btn.disabled = false;
-    }
+    });
   });
-}
+
+  // --- TERMINAL PREVIEW (Suzuvchi Rasm) ---
+  // Faqat kompyuterda (hover bor joyda) ishlaydi
+  if (window.matchMedia("(hover: hover)").matches) {
+    const preview = document.querySelector(".terminal-preview");
+    const previewImg = document.getElementById("preview-img");
+    const dataRows = document.querySelectorAll(".data-row");
+    const terminalBody = document.querySelector(".terminal-body");
+
+    if (preview && previewImg && dataRows.length > 0) {
+      dataRows.forEach(row => {
+        row.addEventListener("mouseenter", () => {
+          const imgSrc = row.getAttribute("data-img");
+          if (imgSrc) {
+            previewImg.src = imgSrc;
+            preview.classList.add("is-active");
+          }
+        });
+
+        row.addEventListener("mouseleave", () => {
+          preview.classList.remove("is-active");
+        });
+      });
+
+      // Sichqoncha harakatini kuzatish va rasmni siljitish
+      terminalBody.addEventListener("mousemove", (e) => {
+        // Terminal oynasiga nisbatan koordinatalar
+        const rect = terminalBody.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        // Rasmni sichqonchadan biroz uzoqroqda ushlash
+        preview.style.transform = `translate(${x + 30}px, ${y - 100}px) scale(1)`;
+      });
+    }
+  }
+
+  // --- FORMA VA MODAL MANTIG'I ---
+  const form = document.getElementById("uplinkForm");
+  const modal = document.getElementById("modal");
+  const modalCloseBtns = document.querySelectorAll("[data-close]");
+
+  const openModal = () => {
+    modal.setAttribute("aria-hidden", "false");
+    body.style.overflow = "hidden"; // Modal ochiqligida skrollni bloklash
+  };
+
+  const closeModal = () => {
+    modal.setAttribute("aria-hidden", "true");
+    body.style.overflow = "";
+  };
+
+  modalCloseBtns.forEach(btn => btn.addEventListener("click", closeModal));
+
+  if (form) {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const action = form.getAttribute("action");
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const btnText = submitBtn.querySelector(".cyber-btn__text");
+      const originalText = btnText.textContent;
+
+      // Formspree ID tekshiruvi
+      if (action.includes("YOUR_FORMSPREE_ID")) {
+        alert("SYSTEM ERROR: Formspree ID not configured. Uplink failed.");
+        return;
+      }
+
+      // Tugma holatini o'zgartirish
+      submitBtn.disabled = true;
+      btnText.textContent = "TRANSMITTING...";
+
+      try {
+        const response = await fetch(action, {
+          method: "POST",
+          body: new FormData(form),
+          headers: { "Accept": "application/json" }
+        });
+
+        if (response.ok) {
+          form.reset();
+          openModal();
+        } else {
+          throw new Error("Transmission failed");
+        }
+      } catch (error) {
+        alert("UPLINK ERROR: Connection lost. Please attempt transmission via alternative channels (Telegram).");
+      } finally {
+        // Tugmani asl holiga qaytarish
+        submitBtn.disabled = false;
+        btnText.textContent = originalText;
+      }
+    });
+  }
+});
