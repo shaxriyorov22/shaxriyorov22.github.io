@@ -6,22 +6,19 @@
   <title>Otash — Product Designer</title>
   <meta name="description" content="Otash — calm futuristic minimal product design portfolio." />
 
-  <!-- Raleway (no serif 😄) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Raleway:wght@800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
-  <!-- Base background + drifting grain -->
   <div class="bg" aria-hidden="true">
     <div class="bg__grain"></div>
     <div class="bg__vignette"></div>
   </div>
 
-  <!-- NAV -->
   <header class="nav" id="nav">
     <div class="nav__inner">
       <a class="brand" href="#top" aria-label="Home">
@@ -38,17 +35,14 @@
   </header>
 
   <main id="top" class="container">
-    <!-- HERO (center, minimal, 1 CTA) -->
     <section class="section section--hero">
       <div class="hero reveal">
-        <h1 class="hero__title">I’m Otash</h1>
+        <h1 class="hero__title font-display">I’m Otash</h1>
         <p class="hero__subtitle">Product UI/UX Designer</p>
         <a class="btn btn--primary" href="#work">View Work</a>
       </div>
-      <div class="fade" aria-hidden="true"></div>
     </section>
 
-    <!-- ULTRA FEATURED (single 9:16, center) -->
     <section class="section section--ultra">
       <div class="ultra reveal">
         <a class="ultra__frame" href="#work" aria-label="View collection">
@@ -56,16 +50,14 @@
           <span class="ultra__halo" aria-hidden="true"></span>
         </a>
 
-        <div class="ultra__meta">
+        <div class="ultra__meta reveal" style="--delay: 150ms;">
           <h2 class="h2">AI Wallpaper Engineering</h2>
           <p class="tagline">Engineered Aesthetic.</p>
-          <a class="btn btn--ghost" href="#work">View Collection</a>
+          <a class="btn btn--ghost mt-2" href="#work">View Collection</a>
         </div>
       </div>
-      <div class="fade" aria-hidden="true"></div>
     </section>
 
-    <!-- FEATURED (vertical): Registan -->
     <section class="section section--feature">
       <article class="feature reveal">
         <img class="feature__img" src="assets/registan.jpg" alt="Registan LC Branding & Visuals" />
@@ -74,10 +66,8 @@
           <p class="muted">Visual materials and structured layout concepts for an education center branch.</p>
         </div>
       </article>
-      <div class="fade" aria-hidden="true"></div>
     </section>
 
-    <!-- FEATURED (vertical): Yozma -->
     <section class="section section--feature">
       <article class="feature reveal">
         <img class="feature__img" src="assets/yozma.jpg" alt="Yozma — Writing Platform Concept" />
@@ -86,10 +76,8 @@
           <p class="muted">Minimal website concept focused on typography clarity and calm reading experience.</p>
         </div>
       </article>
-      <div class="fade" aria-hidden="true"></div>
     </section>
 
-    <!-- WORK (2 columns) -->
     <section id="work" class="section section--work">
       <div class="section__head reveal">
         <h2 class="h2">Work</h2>
@@ -97,21 +85,17 @@
       </div>
 
       <div class="grid">
-        <a class="card reveal" href="#" aria-label="Project 1"><img src="assets/project1.jpg" alt="Project 1" /></a>
-        <a class="card reveal" href="#" aria-label="Project 2"><img src="assets/project2.jpg" alt="Project 2" /></a>
-        <a class="card reveal" href="#" aria-label="Project 3"><img src="assets/project3.jpg" alt="Project 3" /></a>
-        <a class="card reveal" href="#" aria-label="Project 4"><img src="assets/project4.jpg" alt="Project 4" /></a>
-        <a class="card reveal" href="#" aria-label="Project 5"><img src="assets/project5.jpg" alt="Project 5" /></a>
-        <a class="card reveal" href="#" aria-label="Project 6"><img src="assets/project6.jpg" alt="Project 6" /></a>
-        <a class="card reveal" href="#" aria-label="Project 7"><img src="assets/project7.jpg" alt="Project 7" /></a>
-        <a class="card reveal" href="#" aria-label="Project 8"><img src="assets/project8.jpg" alt="Project 8" /></a>
-        <a class="card reveal" href="#" aria-label="Project 9"><img src="assets/project9.jpg" alt="Project 9" /></a>
+        <a class="card reveal" style="--delay: 50ms;" href="#" aria-label="Project 1"><img src="assets/project1.jpg" alt="Project 1" loading="lazy" /></a>
+        <a class="card reveal" style="--delay: 150ms;" href="#" aria-label="Project 2"><img src="assets/project2.jpg" alt="Project 2" loading="lazy" /></a>
+        <a class="card reveal" style="--delay: 50ms;" href="#" aria-label="Project 3"><img src="assets/project3.jpg" alt="Project 3" loading="lazy" /></a>
+        <a class="card reveal" style="--delay: 150ms;" href="#" aria-label="Project 4"><img src="assets/project4.jpg" alt="Project 4" loading="lazy" /></a>
+        <a class="card reveal" style="--delay: 50ms;" href="#" aria-label="Project 5"><img src="assets/project5.jpg" alt="Project 5" loading="lazy" /></a>
+        <a class="card reveal" style="--delay: 150ms;" href="#" aria-label="Project 6"><img src="assets/project6.jpg" alt="Project 6" loading="lazy" /></a>
+        <a class="card reveal" style="--delay: 50ms;" href="#" aria-label="Project 7"><img src="assets/project7.jpg" alt="Project 7" loading="lazy" /></a>
+        <a class="card reveal" style="--delay: 150ms;" href="#" aria-label="Project 8"><img src="assets/project8.jpg" alt="Project 8" loading="lazy" /></a>
       </div>
-
-      <div class="fade" aria-hidden="true"></div>
     </section>
 
-    <!-- ABOUT (Who I am + Why hire me) -->
     <section id="about" class="section section--about">
       <div class="about reveal">
         <div class="about__block">
@@ -131,11 +115,8 @@
           </ul>
         </div>
       </div>
-
-      <div class="fade" aria-hidden="true"></div>
     </section>
 
-    <!-- CONTACT (full form + smooth animated glow) -->
     <section id="contact" class="section section--contact">
       <div class="contact reveal">
         <div class="contact__head">
@@ -143,7 +124,6 @@
           <p class="muted">Clean form. Smooth flow. Subtle success modal.</p>
         </div>
 
-        <!-- Replace YOUR_FORMSPREE_ID when you want submissions to work -->
         <form class="form" id="contactForm" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
           <div class="form__row">
             <label class="field">
@@ -163,7 +143,7 @@
 
           <label class="field">
             <span class="field__label">Message</span>
-            <textarea name="message" rows="5" required></textarea>
+            <textarea name="message" rows="4" required></textarea>
           </label>
 
           <div class="form__actions">
@@ -174,20 +154,21 @@
         </form>
       </div>
 
-      <footer class="footer">
+      <footer class="footer reveal" style="--delay: 200ms;">
         © <span id="year"></span> Otash
       </footer>
     </section>
   </main>
 
-  <!-- Success Modal -->
   <div class="modal" id="modal" aria-hidden="true">
     <div class="modal__backdrop" data-close></div>
     <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <div class="modal__icon" aria-hidden="true">✓</div>
+      <div class="modal__icon" aria-hidden="true">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </div>
       <h3 class="h3" id="modalTitle">Message sent</h3>
       <p class="muted" id="modalText">I’ll reply as soon as possible.</p>
-      <button class="btn btn--ghost" type="button" data-close>Close</button>
+      <button class="btn btn--ghost mt-2" type="button" data-close>Close</button>
     </div>
   </div>
 
