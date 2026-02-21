@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Otash — Product Designer</title>
-  <meta name="description" content="Otash — Premium Dark SaaS Product Design Portfolio." />
+  <title>Otash — UI/UX Designer</title>
+  <meta name="description" content="Otash — Premium UI/UX Designer Portfolio." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -16,6 +16,7 @@
 <body>
   <div class="bg" aria-hidden="true">
     <div class="bg__grain"></div>
+    <div class="bg__glow"></div>
   </div>
 
   <header class="nav" id="nav">
@@ -27,64 +28,130 @@
       <nav class="nav__links" aria-label="Primary">
         <a href="#work">Work</a>
         <a href="#about">About</a>
-        <a href="#contact" class="btn btn--white btn--sm">Contact</a>
+        <a href="#contact" class="btn btn--glass btn--sm">Contact</a>
       </nav>
     </div>
   </header>
 
   <main id="top" class="container">
     <section class="section section--hero">
-      <div class="hero__orb" aria-hidden="true"></div> <div class="hero reveal">
-        <p class="tagline tagline--glow">Product UI/UX Designer</p>
-        <h1 class="hero__title">Building interfaces<br>that feel like magic.</h1>
-        <p class="hero__subtitle">I'm Otash. I craft premium, dark SaaS experiences and structured design systems.</p>
+      <div class="hero reveal">
+        <h1 class="hero__title">Designing the future,<br>one interface at a time.</h1>
+        <p class="hero__subtitle">I'm Otash. I craft premium digital experiences using glassmorphism and deep dark mode aesthetics.</p>
         <div class="hero__actions">
-          <a class="btn btn--white" href="#work">Explore Work</a>
-          <a class="btn btn--ghost" href="#about">Learn More</a>
+          <a class="btn btn--primary" href="#work">Explore Work</a>
         </div>
       </div>
     </section>
 
-    <section class="section section--ultra">
-      <div class="bento-box ultra reveal">
-        <div class="bento-box__glow"></div>
-        <a class="ultra__frame" href="#work">
-          <img class="ultra__img" src="assets/wallpaper.jpg" alt="AI Wallpaper" />
-        </a>
-        <div class="ultra__meta">
-          <h2 class="h2">AI Wallpaper Engineering</h2>
-          <p class="muted">Prompt-engineered aesthetics for modern displays.</p>
+    <section class="section section--coverflow">
+      <div class="coverflow reveal" style="--delay: 100ms;">
+        <div class="coverflow__item coverflow__item--left">
+          <img src="assets/registan.jpg" alt="Registan LC" />
+          <div class="coverflow__label">Registan LC Branding</div>
+        </div>
+        
+        <div class="coverflow__item coverflow__item--center">
+          <div class="coverflow__halo"></div>
+          <img src="assets/wallpaper.jpg" alt="AI Wallpaper Engineering" />
+          <div class="coverflow__meta">
+            <h2 class="h3">AI Wallpaper Engineering</h2>
+            <p class="muted">Visual AI Aesthetics</p>
+          </div>
+        </div>
+
+        <div class="coverflow__item coverflow__item--right">
+          <img src="assets/yozma.jpg" alt="Yozma Concept" />
+          <div class="coverflow__label">Yozma Concept</div>
         </div>
       </div>
     </section>
 
-    <section id="work" class="section section--work">
+    <section id="work" class="section section--index">
       <div class="section__head reveal">
-        <h2 class="h2">Selected Work</h2>
-        <p class="muted">Clean architecture, product-first thinking.</p>
+        <h2 class="h2">Selected Archive</h2>
+        <p class="muted">Hover to reveal the spatial glass UI.</p>
       </div>
 
-      <div class="bento-grid">
-        <a class="bento-card reveal" style="--delay: 50ms;" href="#"><img src="assets/registan.jpg" alt="Registan" loading="lazy" /></a>
-        <a class="bento-card reveal" style="--delay: 150ms;" href="#"><img src="assets/yozma.jpg" alt="Yozma" loading="lazy" /></a>
-        <a class="bento-card reveal" style="--delay: 50ms;" href="#"><img src="assets/project1.jpg" alt="P1" loading="lazy" /></a>
-        <a class="bento-card reveal" style="--delay: 100ms;" href="#"><img src="assets/project2.jpg" alt="P2" loading="lazy" /></a>
-        <a class="bento-card reveal" style="--delay: 150ms;" href="#"><img src="assets/project3.jpg" alt="P3" loading="lazy" /></a>
-        <a class="bento-card reveal" style="--delay: 200ms;" href="#"><img src="assets/project4.jpg" alt="P4" loading="lazy" /></a>
+      <div class="index-list reveal" style="--delay: 150ms;">
+        <a href="#" class="index-item" data-image="assets/project1.jpg">
+          <span class="index-item__num">01</span>
+          <span class="index-item__title">Fintech Mobile Concept</span>
+          <span class="index-item__role">UI/UX • 2026</span>
+        </a>
+        <a href="#" class="index-item" data-image="assets/project2.jpg">
+          <span class="index-item__num">02</span>
+          <span class="index-item__title">E-Commerce Dashboard</span>
+          <span class="index-item__role">Web App • 2026</span>
+        </a>
+        <a href="#" class="index-item" data-image="assets/project3.jpg">
+          <span class="index-item__num">03</span>
+          <span class="index-item__title">Crypto Wallet Dark UI</span>
+          <span class="index-item__role">Mobile • 2025</span>
+        </a>
+        <a href="#" class="index-item" data-image="assets/project4.jpg">
+          <span class="index-item__num">04</span>
+          <span class="index-item__title">Nebula Design System</span>
+          <span class="index-item__role">Architecture • 2025</span>
+        </a>
+      </div>
+      
+      <div class="index-preview" id="indexPreview">
+        <img src="" alt="Project Preview" id="indexPreviewImg" />
       </div>
     </section>
 
     <section id="about" class="section section--about">
-      <div class="bento-box reveal">
-        <div class="bento-box__glow"></div>
-        <h2 class="h2">Discipline & Craft</h2>
+      <div class="glass-box reveal">
+        <h2 class="h2">The Visual Architect</h2>
         <p class="muted mt-2">
-          I build calm, structured interfaces with clean hierarchy. My focus is on micro-interactions, spacing systems, and delivering pixel-perfect dark mode experiences similar to top-tier SaaS products.
+          I build digital spaces through glassmorphism and spatial depth. Every micro-interaction and lighting effect is thoughtfully designed to deliver a premium "Dark SaaS" experience. I don't just draw interfaces; I construct them with strict spatial discipline.
         </p>
       </div>
     </section>
 
-    </main>
+    <section id="contact" class="section section--contact">
+      <div class="glass-box glass-box--contact reveal">
+        <div class="contact__head">
+          <h2 class="h2">Let's build something exceptional.</h2>
+          <p class="muted">Reach out to discuss your next big idea.</p>
+        </div>
+
+        <form class="form" id="contactForm" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+          <div class="form__row">
+            <label class="field">
+              <span class="field__label">Name</span>
+              <input name="name" type="text" autocomplete="name" required />
+            </label>
+            <label class="field">
+              <span class="field__label">Email</span>
+              <input name="email" type="email" autocomplete="email" required />
+            </label>
+          </div>
+          <label class="field">
+            <span class="field__label">Message</span>
+            <textarea name="message" rows="4" required></textarea>
+          </label>
+
+          <div class="form__actions">
+            <button class="btn btn--primary" type="submit">Send Message</button>
+            <a class="btn btn--glass" target="_blank" href="https://t.me/registon_de">Telegram</a>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__panel">
+      <div class="modal__icon">✓</div>
+      <h3 class="h3" id="modalTitle">Message Sent</h3>
+      <p class="muted" id="modalText">I'll get back to you shortly.</p>
+      <button class="btn btn--glass mt-2" type="button" data-close>Close</button>
+    </div>
+  </div>
+
   <script src="app.js"></script>
 </body>
 </html>
