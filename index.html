@@ -1,82 +1,196 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Otash — Product Designer</title>
+  <meta name="description" content="Otash — calm futuristic minimal product design portfolio." />
 
-  <!-- Raleway -->
+  <!-- Raleway (no serif 😄) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
-
-<header class="nav" id="nav">
-  <div class="nav__inner">
-    <div class="brand">Otash</div>
-    <nav>
-      <a href="#work">Work</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-    </nav>
+  <!-- Base background + drifting grain -->
+  <div class="bg" aria-hidden="true">
+    <div class="bg__grain"></div>
+    <div class="bg__vignette"></div>
   </div>
-</header>
 
-<main>
+  <!-- NAV -->
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a class="brand" href="#top" aria-label="Home">
+        <span class="brand__dot" aria-hidden="true"></span>
+        <span class="brand__text">Otash</span>
+      </a>
 
-  <!-- HERO -->
-  <section class="hero">
-    <h1>I design calm digital products.</h1>
-    <p class="subtitle">UI/UX Designer — structured, minimal, product-focused.</p>
-    <a href="#work" class="btn">View Work</a>
-  </section>
-
-  <!-- FLAGSHIP -->
-  <section class="flagship">
-    <div class="flagship__image">
-      <img src="assets/wallpaper.jpg" alt="Flagship Project">
+      <nav class="nav__links" aria-label="Primary">
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <a href="#contact" class="btn btn--ghost btn--sm">Contact</a>
+      </nav>
     </div>
-    <div class="flagship__text">
-      <h2>AI Wallpaper Engineering</h2>
-      <p>Engineered aesthetic through structured visual direction.</p>
+  </header>
+
+  <main id="top" class="container">
+    <!-- HERO (center, minimal, 1 CTA) -->
+    <section class="section section--hero">
+      <div class="hero reveal">
+        <h1 class="hero__title">I’m Otash</h1>
+        <p class="hero__subtitle">Product UI/UX Designer</p>
+        <a class="btn btn--primary" href="#work">View Work</a>
+      </div>
+      <div class="fade" aria-hidden="true"></div>
+    </section>
+
+    <!-- ULTRA FEATURED (single 9:16, center) -->
+    <section class="section section--ultra">
+      <div class="ultra reveal">
+        <a class="ultra__frame" href="#work" aria-label="View collection">
+          <img class="ultra__img" src="assets/wallpaper.jpg" alt="AI Wallpaper Engineering preview" />
+          <span class="ultra__halo" aria-hidden="true"></span>
+        </a>
+
+        <div class="ultra__meta">
+          <h2 class="h2">AI Wallpaper Engineering</h2>
+          <p class="tagline">Engineered Aesthetic.</p>
+          <a class="btn btn--ghost" href="#work">View Collection</a>
+        </div>
+      </div>
+      <div class="fade" aria-hidden="true"></div>
+    </section>
+
+    <!-- FEATURED (vertical): Registan -->
+    <section class="section section--feature">
+      <article class="feature reveal">
+        <img class="feature__img" src="assets/registan.jpg" alt="Registan LC Branding & Visuals" />
+        <div class="feature__body">
+          <h3 class="h3">Registan LC Branding & Visuals</h3>
+          <p class="muted">Visual materials and structured layout concepts for an education center branch.</p>
+        </div>
+      </article>
+      <div class="fade" aria-hidden="true"></div>
+    </section>
+
+    <!-- FEATURED (vertical): Yozma -->
+    <section class="section section--feature">
+      <article class="feature reveal">
+        <img class="feature__img" src="assets/yozma.jpg" alt="Yozma — Writing Platform Concept" />
+        <div class="feature__body">
+          <h3 class="h3">Yozma — Writing Platform Concept</h3>
+          <p class="muted">Minimal website concept focused on typography clarity and calm reading experience.</p>
+        </div>
+      </article>
+      <div class="fade" aria-hidden="true"></div>
+    </section>
+
+    <!-- WORK (2 columns) -->
+    <section id="work" class="section section--work">
+      <div class="section__head reveal">
+        <h2 class="h2">Work</h2>
+        <p class="muted">Selected projects — clean grid, product-level spacing.</p>
+      </div>
+
+      <div class="grid">
+        <a class="card reveal" href="#" aria-label="Project 1"><img src="assets/project1.jpg" alt="Project 1" /></a>
+        <a class="card reveal" href="#" aria-label="Project 2"><img src="assets/project2.jpg" alt="Project 2" /></a>
+        <a class="card reveal" href="#" aria-label="Project 3"><img src="assets/project3.jpg" alt="Project 3" /></a>
+        <a class="card reveal" href="#" aria-label="Project 4"><img src="assets/project4.jpg" alt="Project 4" /></a>
+        <a class="card reveal" href="#" aria-label="Project 5"><img src="assets/project5.jpg" alt="Project 5" /></a>
+        <a class="card reveal" href="#" aria-label="Project 6"><img src="assets/project6.jpg" alt="Project 6" /></a>
+        <a class="card reveal" href="#" aria-label="Project 7"><img src="assets/project7.jpg" alt="Project 7" /></a>
+        <a class="card reveal" href="#" aria-label="Project 8"><img src="assets/project8.jpg" alt="Project 8" /></a>
+        <a class="card reveal" href="#" aria-label="Project 9"><img src="assets/project9.jpg" alt="Project 9" /></a>
+      </div>
+
+      <div class="fade" aria-hidden="true"></div>
+    </section>
+
+    <!-- ABOUT (Who I am + Why hire me) -->
+    <section id="about" class="section section--about">
+      <div class="about reveal">
+        <div class="about__block">
+          <h2 class="h2">Who I am</h2>
+          <p class="muted">
+            I build calm, structured interfaces with clean hierarchy and product-first thinking.
+          </p>
+        </div>
+
+        <div class="about__block">
+          <h2 class="h2">Why hire me</h2>
+          <ul class="bullets">
+            <li>Systems + spacing discipline</li>
+            <li>Strong visual hierarchy</li>
+            <li>Prompt engineering (controlled aesthetics)</li>
+            <li>Fast learner, detail-focused</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="fade" aria-hidden="true"></div>
+    </section>
+
+    <!-- CONTACT (full form + smooth animated glow) -->
+    <section id="contact" class="section section--contact">
+      <div class="contact reveal">
+        <div class="contact__head">
+          <h2 class="h2">Contact</h2>
+          <p class="muted">Clean form. Smooth flow. Subtle success modal.</p>
+        </div>
+
+        <!-- Replace YOUR_FORMSPREE_ID when you want submissions to work -->
+        <form class="form" id="contactForm" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+          <div class="form__row">
+            <label class="field">
+              <span class="field__label">Name</span>
+              <input name="name" type="text" autocomplete="name" required />
+            </label>
+            <label class="field">
+              <span class="field__label">Email</span>
+              <input name="email" type="email" autocomplete="email" required />
+            </label>
+          </div>
+
+          <label class="field">
+            <span class="field__label">Subject</span>
+            <input name="subject" type="text" required />
+          </label>
+
+          <label class="field">
+            <span class="field__label">Message</span>
+            <textarea name="message" rows="5" required></textarea>
+          </label>
+
+          <div class="form__actions">
+            <button class="btn btn--primary" type="submit">Send Message</button>
+            <a class="btn btn--ghost" href="mailto:shahriyorovotajon@gmail.com">Email</a>
+            <a class="btn btn--ghost" target="_blank" rel="noreferrer" href="https://t.me/registon_de">Telegram</a>
+          </div>
+        </form>
+      </div>
+
+      <footer class="footer">
+        © <span id="year"></span> Otash
+      </footer>
+    </section>
+  </main>
+
+  <!-- Success Modal -->
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal__icon" aria-hidden="true">✓</div>
+      <h3 class="h3" id="modalTitle">Message sent</h3>
+      <p class="muted" id="modalText">I’ll reply as soon as possible.</p>
+      <button class="btn btn--ghost" type="button" data-close>Close</button>
     </div>
-  </section>
+  </div>
 
-  <!-- PROJECT GRID -->
-  <section id="work" class="projects">
-    <img src="assets/project1.jpg">
-    <img src="assets/project2.jpg">
-    <img src="assets/project3.jpg">
-    <img src="assets/project4.jpg">
-    <img src="assets/project5.jpg">
-    <img src="assets/project6.jpg">
-    <img src="assets/project7.jpg">
-    <img src="assets/project8.jpg">
-    <img src="assets/project9.jpg">
-  </section>
-
-  <!-- ABOUT -->
-  <section id="about" class="about">
-    <h2>About</h2>
-    <p>I focus on clarity, spacing systems, and calm visual hierarchy.</p>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="contact">
-    <h2>Contact</h2>
-    <form>
-      <input type="text" placeholder="Name">
-      <input type="email" placeholder="Email">
-      <textarea placeholder="Message"></textarea>
-      <button type="submit" class="btn">Send</button>
-    </form>
-  </section>
-
-</main>
-
-<script src="app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
