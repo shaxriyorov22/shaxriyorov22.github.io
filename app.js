@@ -1,8 +1,4 @@
-// Smooth scroll fix for fixed nav
-document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
-  anchor.addEventListener("click",function(e){
-    e.preventDefault();
-    document.querySelector(this.getAttribute("href"))
-      .scrollIntoView({behavior:"smooth"});
-  });
+const nav = document.getElementById("nav");
+window.addEventListener("scroll",()=>{
+  nav.classList.toggle("scrolled", window.scrollY > 20);
 });
