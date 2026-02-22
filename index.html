@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>OTASH — Portfolio</title>
 
-  <!-- Body/UI font (Space Grotesk vibe) -->
+  <!-- Body/UI font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
@@ -13,9 +13,6 @@
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
-  <!-- Ambient moving background layer -->
-  <div class="ambient" aria-hidden="true"></div>
-
   <header class="navbar" id="navbar">
     <div class="nav-inner">
       <div class="brand">OTASH</div>
@@ -28,8 +25,61 @@
   </header>
 
   <main class="snap-root" id="snapRoot">
-    <!-- HERO (atmosphere, NOT a glass panel) -->
+
+    <!-- HERO -->
     <section class="section hero" id="top" data-section="hero">
+      <div class="hero-bg" aria-hidden="true">
+        <!-- Animated SVG background (blurred + color matched) -->
+        <svg class="hero-svg" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+              <stop id="animatedStop" offset="0%" stop-color="rgba(77,163,255,0.12)"/>
+              <stop offset="55%" stop-color="rgba(43,118,255,0.10)"/>
+              <stop offset="100%" stop-color="rgba(15,17,21,0)"/>
+            </linearGradient>
+
+            <radialGradient id="g2" cx="50%" cy="30%" r="70%">
+              <stop offset="0%" stop-color="rgba(77,163,255,0.18)"/>
+              <stop offset="65%" stop-color="rgba(43,118,255,0.08)"/>
+              <stop offset="100%" stop-color="rgba(15,17,21,0)"/>
+            </radialGradient>
+
+            <filter id="softBlur">
+              <feGaussianBlur stdDeviation="18" />
+            </filter>
+
+            <filter id="grain">
+              <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch" />
+              <feColorMatrix type="matrix" values="
+                1 0 0 0 0
+                0 1 0 0 0
+                0 0 1 0 0
+                0 0 0 0.12 0" />
+            </filter>
+          </defs>
+
+          <!-- Large ambient blobs -->
+          <g filter="url(#softBlur)">
+            <circle id="bounce" cx="340" cy="240" r="220" fill="url(#g2)"></circle>
+            <circle id="bounce2" cx="860" cy="360" r="260" fill="url(#g1)"></circle>
+          </g>
+
+          <!-- Particles layer -->
+          <g id="particles" opacity="0.45" filter="url(#softBlur)">
+            <circle cx="160" cy="520" r="10" fill="rgba(77,163,255,0.25)"></circle>
+            <circle cx="240" cy="460" r="7"  fill="rgba(43,118,255,0.22)"></circle>
+            <circle cx="420" cy="560" r="9"  fill="rgba(77,163,255,0.20)"></circle>
+            <circle cx="980" cy="520" r="12" fill="rgba(43,118,255,0.18)"></circle>
+            <circle cx="1040" cy="420" r="8" fill="rgba(77,163,255,0.22)"></circle>
+            <circle cx="760" cy="170" r="6" fill="rgba(43,118,255,0.20)"></circle>
+            <circle cx="620" cy="210" r="9" fill="rgba(77,163,255,0.18)"></circle>
+          </g>
+
+          <!-- Grain overlay -->
+          <rect x="0" y="0" width="1200" height="700" filter="url(#grain)" opacity="0.18"></rect>
+        </svg>
+      </div>
+
       <div class="hero-inner">
         <div class="hero-content" id="heroParallax">
           <h1 class="hero-title">I’M OTASH</h1>
@@ -37,25 +87,47 @@
           <a class="btn btn-outline" href="#work">View Work</a>
         </div>
       </div>
+
       <div class="hero-fade" aria-hidden="true"></div>
     </section>
 
-    <!-- FLAGSHIP (Glass Stage 01) -->
+    <!-- FLAGSHIP -->
     <section class="section stage" id="flagship" data-section="flagship">
       <div class="stage-inner">
         <article class="panel panel--flagship">
-          <div class="panel-head">
+          <header class="panel-head panel-head--center">
             <h2 class="panel-title">AI Wallpaper Engineering</h2>
             <p class="panel-tagline">Engineered Aesthetic.</p>
-          </div>
+          </header>
 
-          <a class="flagship-card" href="#work" aria-label="View Collection">
-            <div class="flagship-media">
-              <!-- 9:16 preview -->
-              <img src="./assets/wallpaper-vol1.jpg" alt="AI Wallpaper Engineering preview" />
-            </div>
-            <div class="flagship-halo" aria-hidden="true"></div>
-          </a>
+          <div class="flagship-triple" aria-label="Flagship showcase">
+            <!-- Left: Yozma -->
+            <a class="stack-card stack-card--side stack-card--left" href="#work" aria-label="Yozma">
+              <div class="stack-media">
+                <img src="./assets/yozma.jpg" alt="Yozma preview" loading="lazy" decoding="async">
+              </div>
+              <div class="stack-caption">Yozma</div>
+              <div class="stack-halo" aria-hidden="true"></div>
+            </a>
+
+            <!-- Center: Wallpaper 9:16 -->
+            <a class="stack-card stack-card--main" href="#work" aria-label="AI Wallpaper Vol. I">
+              <div class="stack-media stack-media--main">
+                <img src="./assets/wallpaper-vol1.jpg" alt="AI Wallpaper Engineering preview" loading="lazy" decoding="async">
+              </div>
+              <div class="stack-caption">Wallpaper Vol. I</div>
+              <div class="stack-halo" aria-hidden="true"></div>
+            </a>
+
+            <!-- Right: Registan -->
+            <a class="stack-card stack-card--side stack-card--right" href="#work" aria-label="Registan LC">
+              <div class="stack-media">
+                <img src="./assets/registan-brand.jpg" alt="Registan LC preview" loading="lazy" decoding="async">
+              </div>
+              <div class="stack-caption">Registan LC</div>
+              <div class="stack-halo" aria-hidden="true"></div>
+            </a>
+          </div>
 
           <div class="panel-actions">
             <a class="btn btn-outline" href="#work">View Collection</a>
@@ -64,88 +136,35 @@
       </div>
     </section>
 
-    <!-- WORK (Glass Stage 02) -->
+    <!-- WORK -->
     <section class="section stage" id="work" data-section="work">
       <div class="stage-inner">
         <article class="panel">
-          <div class="panel-head">
+          <header class="panel-head">
             <h2 class="panel-title panel-title--smallcaps">WORK</h2>
             <p class="panel-desc">Selected projects across product UI, identity systems, and engineered visuals.</p>
-          </div>
+          </header>
 
-          <div class="grid" id="projectsGrid" aria-label="Project grid"></div>
+          <div class="grid" id="projectsGrid" aria-label="Projects grid"></div>
         </article>
       </div>
     </section>
 
-    <!-- LABS (Glass Stage 03) -->
-    <section class="section stage stage--labs" id="labs" data-section="labs">
-      <div class="stage-inner">
-        <article class="panel panel--labs">
-          <div class="panel-head">
-            <h2 class="panel-title panel-title--smallcaps">LABS</h2>
-            <p class="panel-desc">
-              Explorations beyond structure. Motion, atmosphere, and digital experimentation.
-            </p>
-          </div>
-
-          <div class="labs-row">
-            <!-- Your expandable animation, adapted to our electric-blue system -->
-            <div class="labs-expand" role="group" aria-label="Interactive experiments">
-              <button class="labs-seg" type="button">
-                <span>Motion</span>
-              </button>
-              <button class="labs-seg" type="button">
-                <span>Atmosphere</span>
-              </button>
-              <button class="labs-seg" type="button">
-                <span>Systems</span>
-              </button>
-              <button class="labs-seg" type="button">
-                <span>Light</span>
-              </button>
-            </div>
-
-            <div class="labs-card">
-              <h3 class="labs-card-title">Playground Notes</h3>
-              <p class="labs-card-text">
-                Small interactions, motion studies, and visual rhythm experiments — designed to feel alive but controlled.
-              </p>
-              <div class="labs-meta">
-                <span class="pill">More motion</span>
-                <span class="pill">Higher glow</span>
-                <span class="pill">Fast feedback</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="panel-actions">
-            <a class="btn btn-outline" href="#about">About Me</a>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- ABOUT (Glass Stage 04) -->
+    <!-- ABOUT -->
     <section class="section stage" id="about" data-section="about">
       <div class="stage-inner">
         <article class="panel panel--about">
-          <div class="panel-head panel-head--center">
+          <header class="panel-head panel-head--center">
             <h2 class="panel-title panel-title--smallcaps">ABOUT</h2>
-          </div>
+          </header>
 
           <div class="about">
             <p>
-              I design with structure, not decoration.<br/>
-              Every interface I build starts with clarity and ends with intention.
+              I’m Otash — I design controlled digital experiences and engineered aesthetics.
+              I like when visuals feel intentional: clean hierarchy, calm motion, and strong atmosphere.
             </p>
             <p>
-              I’m driven by systems — how elements relate, how motion feels, how silence speaks.<br/>
-              My work sits between minimalism and engineered aesthetics.
-            </p>
-            <p>
-              I don’t chase trends.<br/>
-              I build controlled digital experiences.
+              I work across product UI and AI wallpaper engineering — where structure meets style.
             </p>
 
             <ul class="about-bullets" aria-label="Identity bullets">
@@ -162,43 +181,67 @@
       </div>
     </section>
 
-    <!-- CONTACT (Glass Stage 05) -->
+    <!-- CONTACT -->
     <section class="section stage" id="contact" data-section="contact">
       <div class="stage-inner">
         <article class="panel panel--contact">
-          <div class="panel-head panel-head--center">
+          <header class="panel-head panel-head--center">
             <h2 class="panel-title panel-title--smallcaps">CONTACT</h2>
             <p class="panel-desc">Send a message — I’ll reply when I can.</p>
+          </header>
+
+          <div class="contact-split">
+            <form class="form" id="contactForm">
+              <div class="form-row">
+                <label class="field">
+                  <span class="label">Name</span>
+                  <input class="input" name="name" type="text" autocomplete="name" required />
+                </label>
+
+                <label class="field">
+                  <span class="label">Email</span>
+                  <input class="input" name="email" type="email" autocomplete="email" required />
+                </label>
+              </div>
+
+              <label class="field">
+                <span class="label">Subject</span>
+                <input class="input" name="subject" type="text" required />
+              </label>
+
+              <label class="field">
+                <span class="label">Message</span>
+                <textarea class="textarea" name="message" rows="6" required></textarea>
+              </label>
+
+              <div class="form-actions">
+                <button class="btn btn-outline" type="submit">Submit</button>
+                <span class="form-hint">Subtle success modal after submit.</span>
+              </div>
+            </form>
+
+            <aside class="direct">
+              <h3 class="direct-title">Direct</h3>
+
+              <div class="direct-item">
+                <span class="direct-label">Telegram</span>
+                <a class="direct-value" href="https://t.me/registon_de" target="_blank" rel="noopener">t.me/registon_de</a>
+                <button class="copy" type="button" data-copy="https://t.me/registon_de">Copy</button>
+              </div>
+
+              <div class="direct-item">
+                <span class="direct-label">Email</span>
+                <a class="direct-value" href="mailto:shahriyorovotajon@gmail.com">shahriyorovotajon@gmail.com</a>
+                <button class="copy" type="button" data-copy="shahriyorovotajon@gmail.com">Copy</button>
+              </div>
+
+              <div class="direct-item">
+                <span class="direct-label">Phone</span>
+                <a class="direct-value" href="tel:+998948150819">+998 94 815 08 19</a>
+                <button class="copy" type="button" data-copy="+998948150819">Copy</button>
+              </div>
+            </aside>
           </div>
-
-          <form class="form" id="contactForm">
-            <div class="form-row">
-              <label class="field">
-                <span class="label">Name</span>
-                <input class="input" name="name" type="text" autocomplete="name" required />
-              </label>
-
-              <label class="field">
-                <span class="label">Email</span>
-                <input class="input" name="email" type="email" autocomplete="email" required />
-              </label>
-            </div>
-
-            <label class="field">
-              <span class="label">Subject</span>
-              <input class="input" name="subject" type="text" required />
-            </label>
-
-            <label class="field">
-              <span class="label">Message</span>
-              <textarea class="textarea" name="message" rows="6" required></textarea>
-            </label>
-
-            <div class="form-actions">
-              <button class="btn btn-outline" type="submit">Submit</button>
-              <span class="form-hint">Subtle success modal after submit.</span>
-            </div>
-          </form>
 
           <footer class="footer">
             © <span id="year"></span> — OTASH
