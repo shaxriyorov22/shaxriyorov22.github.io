@@ -1,7 +1,3 @@
-// ---------------------------------------------
-// OTASH Portfolio — Snap + Stacked Glass Panels
-// ---------------------------------------------
-
 const navbar = document.getElementById("navbar");
 const snapRoot = document.getElementById("snapRoot");
 const heroParallax = document.getElementById("heroParallax");
@@ -9,7 +5,7 @@ const yearEl = document.getElementById("year");
 
 yearEl.textContent = String(new Date().getFullYear());
 
-// Projects (9 items)
+// Projects (you can reorder anytime)
 const projects = [
   {
     title: "RLLC Window Campaign System",
@@ -51,73 +47,37 @@ const projects = [
     desc: "Structured prompt frameworks for repeatable, high-quality visual output.",
     img: "./assets/promptsystem.jpg",
   },
-  {
-    title: "Visual Composition Study",
-    desc: "Editing, layout rhythm, and visual hierarchy explorations for sharper visual control.",
-    img: "./assets/photoshop.jpg",
-  },
 ];
 
-// Render project cards
+// Render grid: overlay shows on hover
 const grid = document.getElementById("projectsGrid");
-grid.innerHTML = projects.map((p) => {
-  return `
-    <article class="project" tabindex="0" aria-label="${escapeHtml(p.title)}">
-      <div class="project-media">
-        <img src="${p.img}" alt="${escapeHtml(p.title)}" loading="lazy" decoding="async" />
-      </div>
-      <div class="project-body">
-        <h3 class="project-title">${escapeHtml(p.title)}</h3>
-        <p class="project-desc">${escapeHtml(p.desc)}</p>
-      </div>
-    </article>
-  `;
-}).join("");
+grid.innerHTML = projects.map((p) => `
+  <article class="project" tabindex="0" aria-label="${esc(p.title)}">
+    <div class="project-media">
+      <img src="${p.img}" alt="${esc(p.title)}" loading="lazy" decoding="async" />
+    </div>
+    <div class="project-overlay">
+      <h3 class="project-title">${esc(p.title)}</h3>
+      <p class="project-desc">${esc(p.desc)}</p>
+    </div>
+  </article>
+`).join("");
 
-// Navbar glass on scroll (snapRoot scroll container)
+// Navbar glass on scroll
 function handleNavGlass(){
   const y = snapRoot.scrollTop;
   if (y > 8) navbar.classList.add("scrolled");
   else navbar.classList.remove("scrolled");
 }
 
-// Subtle hero parallax (only a small shift)
+// Subtle hero parallax (very controlled)
 function handleHeroParallax(){
   const y = snapRoot.scrollTop;
-  // very subtle: max ~14px
-  const shift = Math.min(14, y * 0.06);
+  const shift = Math.min(16, y * 0.05); // slower
   heroParallax.style.setProperty("--heroY", `${shift}px`);
 }
 
-// Stacked overlay behavior using IntersectionObserver
-// Active section: panel enters (slide-up + opacity)
-// Before section: panel fades out, blurs, scales to 0.98
-const sections = Array.from(document.querySelectorAll(".section"));
-const io = new IntersectionObserver((entries) => {
-  // choose the most visible stage section
-  const visible = entries
-    .filter(e => e.isIntersecting)
-    .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
-
-  if (!visible) return;
-
-  const activeEl = visible.target;
-
-  // mark active and before
-  let activeIndex = sections.indexOf(activeEl);
-  sections.forEach((sec, idx) => {
-    sec.classList.toggle("is-active", idx === activeIndex);
-    sec.classList.toggle("is-before", idx < activeIndex && sec.classList.contains("stage"));
-  });
-}, {
-  root: snapRoot,
-  threshold: [0.15, 0.35, 0.55, 0.75]
-});
-
-// Observe only stage sections for the overlay logic
-sections.forEach((sec) => io.observe(sec));
-
-// Modal logic
+// Modal
 const form = document.getElementById("contactForm");
 const modalBackdrop = document.getElementById("modalBackdrop");
 const closeModalBtn = document.getElementById("closeModal");
@@ -131,6 +91,7 @@ function closeModal(){
   modalBackdrop.classList.remove("show");
   modalBackdrop.setAttribute("aria-hidden", "true");
 }
+
 closeModalBtn.addEventListener("click", closeModal);
 modalBackdrop.addEventListener("click", (e) => {
   if (e.target === modalBackdrop) closeModal();
@@ -141,23 +102,36 @@ document.addEventListener("keydown", (e) => {
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  // Here you can plug in EmailJS / Formspree later.
   form.reset();
   openModal();
 });
 
-// Run
+// Copy buttons for direct contact
+document.querySelectorAll("[data-copy]").forEach((btn) => {
+  btn.addEventListener("click", async () => {
+    const val = btn.getAttribute("data-copy") || "";
+    try{
+      await navigator.clipboard.writeText(val);
+      const old = btn.textContent;
+      btn.textContent = "Copied";
+      setTimeout(() => (btn.textContent = old), 900);
+    }catch{
+      // fallback: do nothing
+    }
+  });
+});
+
+// Scroll handlers
 snapRoot.addEventListener("scroll", () => {
   handleNavGlass();
   handleHeroParallax();
 }, { passive: true });
 
-// Initial state
 handleNavGlass();
 handleHeroParallax();
 
 // Helpers
-function escapeHtml(str){
+function esc(str){
   return String(str)
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
