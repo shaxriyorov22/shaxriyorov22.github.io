@@ -1,263 +1,223 @@
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>OTASH // SYSTEM_UI_ARCHITECT</title>
-  <meta name="description" content="Premium Sci-Fi Interface Design Portfolio. Glassmorphism, Neon, Dark Aesthetics." />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OTASH — Portfolio</title>
 
+  <!-- Body/UI font (Space Grotesk vibe) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css" />
-  <script>document.documentElement.classList.remove("no-js");</script>
+  <link rel="stylesheet" href="./styles.css" />
 </head>
+<body>
+  <!-- Ambient moving background layer -->
+  <div class="ambient" aria-hidden="true"></div>
 
-<body class="loading">
-  <div class="preloader">
-    <div class="preloader__scan"></div>
-    <div class="preloader__text" data-text="INITIALIZING CORE SYSTEMS...">INITIALIZING CORE SYSTEMS...</div>
-    <div class="preloader__bar"><div class="preloader__progress"></div></div>
-  </div>
-
-  <div class="cyber-bg">
-    <div class="cyber-bg__grid"></div> <div class="cyber-bg__stars"></div> <div class="cyber-bg__orb cyber-bg__orb--1"></div> <div class="cyber-bg__orb cyber-bg__orb--2"></div> <div class="cyber-bg__scanline"></div> </div>
-
-  <div class="hud-frame">
-    <div class="hud-frame__corner hud-frame__corner--tl"></div>
-    <div class="hud-frame__corner hud-frame__corner--tr"></div>
-    <div class="hud-frame__corner hud-frame__corner--bl"></div>
-    <div class="hud-frame__corner hud-frame__corner--br"></div>
-    <div class="hud-frame__side hud-frame__side--left">SYSTEM STATUS: NOMINAL</div>
-    <div class="hud-frame__side hud-frame__side--right">DESIGN_ENGINE: V.2.0.26</div>
-  </div>
-
-  <header class="cyber-nav" id="nav">
-    <div class="cyber-nav__glass">
-      <a class="cyber-brand" href="#hero">
-        <span class="cyber-brand__icon"></span>
-        <span class="cyber-brand__text glitch" data-text="OTASH.SYS">OTASH.SYS</span>
-      </a>
-      <nav class="cyber-links">
-        <a href="#coverflow" class="cyber-link" data-hover="PROJECTS"><span>//</span> PROJECTS</a>
-        <a href="#database" class="cyber-link" data-hover="DATABASE"><span>//</span> DATABASE</a>
-        <a href="#profile" class="cyber-link" data-hover="PROFILE"><span>//</span> PROFILE</a>
-        <a href="#uplink" class="cyber-btn">
-          <span class="cyber-btn__glare"></span>
-          <span class="cyber-btn__text">ESTABLISH UPLINK</span>
-        </a>
+  <header class="navbar" id="navbar">
+    <div class="nav-inner">
+      <div class="brand">OTASH</div>
+      <nav class="nav-links">
+        <a href="#work" class="nav-link">WORK</a>
+        <a href="#about" class="nav-link">ABOUT</a>
+        <a href="#contact" class="nav-link">CONTACT</a>
       </nav>
     </div>
   </header>
 
-  <main class="cyber-container" id="hero">
-    <section class="cyber-section cyber-hero">
-      <div class="cyber-hero__content">
-        <div class="cyber-badge">STATUS: AVAILABLE FOR DEPLOYMENT</div>
-        <h1 class="cyber-title glitch-heavy" data-text="ARCHITECTING DIGITAL REALITIES">
-          ARCHITECTING <br> DIGITAL REALITIES
-        </h1>
-        <p class="cyber-subtitle">
-          <span class="mono-prefix">></span> I construct <span class="neon-text">advanced glassmorphic interfaces</span> and immersive <span class="neon-text">sci-fi experiences</span> within the digital void.
-        </p>
-        <div class="cyber-actions">
-          <a href="#coverflow" class="cyber-btn cyber-btn--primary">
-            <span class="cyber-btn__glare"></span>
-            <span class="cyber-btn__text">INITIALIZE PORTFOLIO SEQUENCE</span>
+  <main class="snap-root" id="snapRoot">
+    <!-- HERO (atmosphere, NOT a glass panel) -->
+    <section class="section hero" id="top" data-section="hero">
+      <div class="hero-inner">
+        <div class="hero-content" id="heroParallax">
+          <h1 class="hero-title">I’M OTASH</h1>
+          <p class="hero-subtitle">Building structured digital aesthetics</p>
+          <a class="btn btn-outline" href="#work">View Work</a>
+        </div>
+      </div>
+      <div class="hero-fade" aria-hidden="true"></div>
+    </section>
+
+    <!-- FLAGSHIP (Glass Stage 01) -->
+    <section class="section stage" id="flagship" data-section="flagship">
+      <div class="stage-inner">
+        <article class="panel panel--flagship">
+          <div class="panel-head">
+            <h2 class="panel-title">AI Wallpaper Engineering</h2>
+            <p class="panel-tagline">Engineered Aesthetic.</p>
+          </div>
+
+          <a class="flagship-card" href="#work" aria-label="View Collection">
+            <div class="flagship-media">
+              <!-- 9:16 preview -->
+              <img src="./assets/wallpaper-vol1.jpg" alt="AI Wallpaper Engineering preview" />
+            </div>
+            <div class="flagship-halo" aria-hidden="true"></div>
           </a>
-        </div>
-      </div>
-      <div class="cyber-hero__visual">
-        <div class="holo-projector">
-          <div class="holo-projector__beam"></div>
-          <div class="holo-ui-cube">
-            <div class="cube-face cube-face--front">UI</div>
-            <div class="cube-face cube-face--back">UX</div>
-            <div class="cube-face cube-face--right">AI</div>
-            <div class="cube-face cube-face--left">3D</div>
-            <div class="cube-face cube-face--top"></div>
-            <div class="cube-face cube-face--bottom"></div>
+
+          <div class="panel-actions">
+            <a class="btn btn-outline" href="#work">View Collection</a>
           </div>
-        </div>
+        </article>
       </div>
     </section>
 
-    <section id="coverflow" class="cyber-section cyber-coverflow">
-      <div class="section-header">
-        <h2 class="section-title" data-text="PRIMARY_DATA_VISUALIZATION">// PRIMARY_DATA_VISUALIZATION</h2>
-        <div class="section-line"></div>
-      </div>
-      
-      <div class="holo-stage">
-        <div class="holo-platform"></div>
-        <div class="coverflow-3d">
-          <div class="coverflow-card coverflow-card--left">
-            <div class="glass-panel">
-              <img src="registan.jpg" alt="Registan Data" class="glass-img">
-              <div class="glass-overlay"></div>
-              <div class="card-data">
-                <span class="mono-label">FILE: REGISTAN_LC</span>
-              </div>
-            </div>
-          </div>
-          
-          <div class="coverflow-card coverflow-card--center">
-            <div class="energy-field"></div> <div class="glass-panel glass-panel--active">
-              <img src="wallpaper.jpg" alt="AI Wallpaper Core" class="glass-img">
-              <div class="glass-overlay"></div>
-              <div class="card-info-panel">
-                <h3 class="card-title glitch" data-text="AI WALLPAPER CORE">AI WALLPAPER CORE</h3>
-                <p class="card-desc mono-text">>> Neural network generated visual aesthetics for next-gen displays.</p>
-                <div class="card-stats">
-                  <div><span class="neon-label">TYPE:</span> R&D</div>
-                  <div><span class="neon-label">STATUS:</span> ACTIVE</div>
-                </div>
-              </div>
-            </div>
+    <!-- WORK (Glass Stage 02) -->
+    <section class="section stage" id="work" data-section="work">
+      <div class="stage-inner">
+        <article class="panel">
+          <div class="panel-head">
+            <h2 class="panel-title panel-title--smallcaps">WORK</h2>
+            <p class="panel-desc">Selected projects across product UI, identity systems, and engineered visuals.</p>
           </div>
 
-          <div class="coverflow-card coverflow-card--right">
-            <div class="glass-panel">
-              <img src="yozma.jpg" alt="Yozma Data" class="glass-img">
-              <div class="glass-overlay"></div>
-              <div class="card-data">
-                <span class="mono-label">FILE: YOZMA_CONCEPT</span>
-              </div>
-            </div>
-          </div>
-        </div>
+          <div class="grid" id="projectsGrid" aria-label="Project grid"></div>
+        </article>
       </div>
     </section>
 
-    <section id="database" class="cyber-section cyber-database">
-      <div class="section-header">
-        <h2 class="section-title" data-text="PROJECT_ARCHIVE_TERMINAL">// PROJECT_ARCHIVE_TERMINAL</h2>
-        <div class="section-line"></div>
-      </div>
+    <!-- LABS (Glass Stage 03) -->
+    <section class="section stage stage--labs" id="labs" data-section="labs">
+      <div class="stage-inner">
+        <article class="panel panel--labs">
+          <div class="panel-head">
+            <h2 class="panel-title panel-title--smallcaps">LABS</h2>
+            <p class="panel-desc">
+              Explorations beyond structure. Motion, atmosphere, and digital experimentation.
+            </p>
+          </div>
 
-      <div class="terminal-window">
-        <div class="terminal-header">
-          <span class="terminal-btn red"></span>
-          <span class="terminal-btn yellow"></span>
-          <span class="terminal-btn green"></span>
-          <span class="terminal-title mono-text">user@otash.sys:~/projects_db</span>
-        </div>
-        <div class="terminal-body">
-          <div class="data-grid">
-            <div class="data-row" data-img="project1.jpg">
-              <div class="data-cell mono-text idx">[0x01]</div>
-              <div class="data-cell title glitch-hover" data-text="QUANTUM_FINTECH_DASHBOARD">QUANTUM_FINTECH_DASHBOARD</div>
-              <div class="data-cell mono-text type">UI/UX /// WEBAPP</div>
-              <div class="data-cell mono-text date">2026.Q1</div>
-              <div class="data-scanline"></div>
+          <div class="labs-row">
+            <!-- Your expandable animation, adapted to our electric-blue system -->
+            <div class="labs-expand" role="group" aria-label="Interactive experiments">
+              <button class="labs-seg" type="button">
+                <span>Motion</span>
+              </button>
+              <button class="labs-seg" type="button">
+                <span>Atmosphere</span>
+              </button>
+              <button class="labs-seg" type="button">
+                <span>Systems</span>
+              </button>
+              <button class="labs-seg" type="button">
+                <span>Light</span>
+              </button>
             </div>
-            <div class="data-row" data-img="project2.jpg">
-              <div class="data-cell mono-text idx">[0x02]</div>
-              <div class="data-cell title glitch-hover" data-text="CYBERNETICS_E-COMMERCE">CYBERNETICS_E-COMMERCE</div>
-              <div class="data-cell mono-text type">PLATFORM /// DESKTOP</div>
-              <div class="data-cell mono-text date">2025.Q4</div>
-              <div class="data-scanline"></div>
-            </div>
-            <div class="data-row" data-img="project3.jpg">
-              <div class="data-cell mono-text idx">[0x03]</div>
-              <div class="data-cell title glitch-hover" data-text="NEURAL_CRYPTO_WALLET">NEURAL_CRYPTO_WALLET</div>
-              <div class="data-cell mono-text type">MOBILE /// DAPP</div>
-              <div class="data-cell mono-text date">2025.Q3</div>
-              <div class="data-scanline"></div>
-            </div>
-            <div class="data-row" data-img="project4.jpg">
-              <div class="data-cell mono-text idx">[0x04]</div>
-              <div class="data-cell title glitch-hover" data-text="VOID_DESIGN_SYSTEM_V2">VOID_DESIGN_SYSTEM_V2</div>
-              <div class="data-cell mono-text type">ARCHITECTURE /// LIBRARY</div>
-              <div class="data-cell mono-text date">2025.Q2</div>
-              <div class="data-scanline"></div>
-            </div>
-            <div class="data-row" data-img="project5.jpg">
-              <div class="data-cell mono-text idx">[0x05]</div>
-              <div class="data-cell title glitch-hover" data-text="HOLO_INTERFACE_EXPERIMENTS">HOLO_INTERFACE_EXPERIMENTS</div>
-              <div class="data-cell mono-text type">R&D /// PROTOTYPE</div>
-              <div class="data-cell mono-text date">ARCHIVED</div>
-              <div class="data-scanline"></div>
+
+            <div class="labs-card">
+              <h3 class="labs-card-title">Playground Notes</h3>
+              <p class="labs-card-text">
+                Small interactions, motion studies, and visual rhythm experiments — designed to feel alive but controlled.
+              </p>
+              <div class="labs-meta">
+                <span class="pill">More motion</span>
+                <span class="pill">Higher glow</span>
+                <span class="pill">Fast feedback</span>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="terminal-preview">
-          <div class="preview-glass">
-            <img src="" alt="Preview" id="preview-img">
-            <div class="preview-overlay"></div>
-            <div class="preview-scan"></div>
+
+          <div class="panel-actions">
+            <a class="btn btn-outline" href="#about">About Me</a>
           </div>
-        </div>
+        </article>
       </div>
     </section>
 
-    <section id="profile" class="cyber-section cyber-profile">
-      <div class="cyber-glass-box">
-        <div class="box-glow"></div>
-        <h2 class="cyber-title glitch" data-text="THE_VISUAL_ENGINEER">THE_VISUAL_ENGINEER</h2>
-        <p class="cyber-text mono-text">
-          >> I engineer digital voids into structured, light-reactive environments. My stack includes advanced glassmorphism, spatial UI discipline, and AI-augmented workflows to deliver "Dark SaaS" experiences that feel like technology from the next century.
-        </p>
-      </div>
+    <!-- ABOUT (Glass Stage 04) -->
+    <section class="section stage" id="about" data-section="about">
+      <div class="stage-inner">
+        <article class="panel panel--about">
+          <div class="panel-head panel-head--center">
+            <h2 class="panel-title panel-title--smallcaps">ABOUT</h2>
+          </div>
 
-      <div id="uplink" class="cyber-glass-box cyber-glass-box--uplink">
-        <div class="box-glow box-glow--accent"></div>
-        <h2 class="cyber-title cyber-title--sm glitch" data-text="ESTABLISH_SECURE_UPLINK">ESTABLISH_SECURE_UPLINK</h2>
-        
-        <form class="cyber-form" id="uplinkForm" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
-          <div class="form-grid">
-            <div class="input-group">
-              <label class="mono-label" for="name">DESIGNATION [NAME]</label>
-              <div class="input-wrapper">
-                <input type="text" id="name" name="name" required placeholder="Enter Designation...">
-                <div class="input-focus-glow"></div>
-              </div>
-            </div>
-            <div class="input-group">
-              <label class="mono-label" for="email">COMM_CHANNEL [EMAIL]</label>
-              <div class="input-wrapper">
-                <input type="email" id="email" name="email" required placeholder="Enter Frequency...">
-                <div class="input-focus-glow"></div>
-              </div>
-            </div>
+          <div class="about">
+            <p>
+              I design with structure, not decoration.<br/>
+              Every interface I build starts with clarity and ends with intention.
+            </p>
+            <p>
+              I’m driven by systems — how elements relate, how motion feels, how silence speaks.<br/>
+              My work sits between minimalism and engineered aesthetics.
+            </p>
+            <p>
+              I don’t chase trends.<br/>
+              I build controlled digital experiences.
+            </p>
+
+            <ul class="about-bullets" aria-label="Identity bullets">
+              <li>Motion as expression</li>
+              <li>Systems over screens</li>
+              <li>Structured experimentation</li>
+            </ul>
           </div>
-          <div class="input-group">
-            <label class="mono-label" for="message">DATA_PACKET [MESSAGE]</label>
-            <div class="input-wrapper">
-              <textarea id="message" name="message" rows="5" required placeholder="Input Data Sequence..."></textarea>
-              <div class="input-focus-glow"></div>
+
+          <div class="panel-actions">
+            <a class="btn btn-outline" href="#contact">Contact</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- CONTACT (Glass Stage 05) -->
+    <section class="section stage" id="contact" data-section="contact">
+      <div class="stage-inner">
+        <article class="panel panel--contact">
+          <div class="panel-head panel-head--center">
+            <h2 class="panel-title panel-title--smallcaps">CONTACT</h2>
+            <p class="panel-desc">Send a message — I’ll reply when I can.</p>
+          </div>
+
+          <form class="form" id="contactForm">
+            <div class="form-row">
+              <label class="field">
+                <span class="label">Name</span>
+                <input class="input" name="name" type="text" autocomplete="name" required />
+              </label>
+
+              <label class="field">
+                <span class="label">Email</span>
+                <input class="input" name="email" type="email" autocomplete="email" required />
+              </label>
             </div>
-          </div>
-          <div class="form-actions">
-            <button type="submit" class="cyber-btn cyber-btn--primary">
-              <span class="cyber-btn__glare"></span>
-              <span class="cyber-btn__text">TRANSMIT DATA</span>
-            </button>
-            <a href="https://t.me/registon_de" target="_blank" class="cyber-btn">
-              <span class="cyber-btn__glare"></span>
-              <span class="cyber-btn__text">TELEGRAM_LINK</span>
-            </a>
-          </div>
-        </form>
+
+            <label class="field">
+              <span class="label">Subject</span>
+              <input class="input" name="subject" type="text" required />
+            </label>
+
+            <label class="field">
+              <span class="label">Message</span>
+              <textarea class="textarea" name="message" rows="6" required></textarea>
+            </label>
+
+            <div class="form-actions">
+              <button class="btn btn-outline" type="submit">Submit</button>
+              <span class="form-hint">Subtle success modal after submit.</span>
+            </div>
+          </form>
+
+          <footer class="footer">
+            © <span id="year"></span> — OTASH
+          </footer>
+        </article>
       </div>
     </section>
   </main>
 
-  <div class="system-modal" id="modal" aria-hidden="true">
-    <div class="modal-backdrop" data-close></div>
-    <div class="modal-window">
-      <div class="modal-window__glow"></div>
-      <div class="modal-icon glitch">Isystem_ok]</div>
-      <h3 class="modal-title mono-text">TRANSMISSION_COMPLETE</h3>
-      <p class="modal-text mono-text">>> Data packet received successfully. Stand by for incoming response sequence.</p>
-      <button class="cyber-btn cyber-btn--sm mt-4" data-close>
-        <span class="cyber-btn__glare"></span>
-        <span class="cyber-btn__text">ACKNOWLEDGE</span>
-      </button>
+  <!-- Success Modal -->
+  <div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-glow" aria-hidden="true"></div>
+      <h3 id="modalTitle" class="modal-title">Message sent</h3>
+      <p class="modal-text">Your message has been submitted successfully.</p>
+      <button class="btn btn-outline" id="closeModal" type="button">Close</button>
     </div>
   </div>
 
-  <script src="app.js"></script>
+  <script src="./app.js"></script>
 </body>
 </html>
