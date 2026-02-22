@@ -1,148 +1,167 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const body = document.body;
-  const nav = document.getElementById("nav");
-  let lastScrollY = window.scrollY;
+// ---------------------------------------------
+// OTASH Portfolio — Snap + Stacked Glass Panels
+// ---------------------------------------------
 
-  // --- PRELOADER SIMULATSIYASI ---
-  // Haqiqiy resurslar yuklanishini kutmasdan, "tizim ishga tushishi" effektini beramiz
-  setTimeout(() => {
-    body.classList.add("loaded");
-    body.classList.remove("loading");
-  }, 2500); // 2.5 soniya "yuklanish"
+const navbar = document.getElementById("navbar");
+const snapRoot = document.getElementById("snapRoot");
+const heroParallax = document.getElementById("heroParallax");
+const yearEl = document.getElementById("year");
 
-  // --- NAVIGATSIYA SKROLL EFFEKTI ---
-  const handleScroll = () => {
-    const currentScrollY = window.scrollY;
+yearEl.textContent = String(new Date().getFullYear());
 
-    // Pastga skroll qilganda menyuni yashirish (agar tepada bo'lmasa)
-    if (currentScrollY > lastScrollY && currentScrollY > 100) {
-      nav.classList.add("is-hidden");
-    } else {
-      nav.classList.remove("is-hidden");
-    }
+// Projects (9 items)
+const projects = [
+  {
+    title: "RLLC Window Campaign System",
+    desc: "Retail-focused visual structure designed to guide attention and amplify storefront impact.",
+    img: "./assets/rllc.jpg",
+  },
+  {
+    title: "Yozma Web Platform",
+    desc: "A content-first digital writing experience built around clarity and reading flow.",
+    img: "./assets/yozma.jpg",
+  },
+  {
+    title: "Registan LC Brand System",
+    desc: "Identity framework balancing tradition and modern education — consistent across touchpoints.",
+    img: "./assets/registan-brand.jpg",
+  },
+  {
+    title: "Quantum Brand Identity",
+    desc: "Minimal, system-based visual language for a conceptual technology brand.",
+    img: "./assets/quantum-brand.jpg",
+  },
+  {
+    title: "Tourism Experience Interface",
+    desc: "Exploration-first interface concept focused on narrative flow and destination mapping.",
+    img: "./assets/tourisms.jpg",
+  },
+  {
+    title: "Education Landing Architecture",
+    desc: "Conversion-driven structure designed for modern learning platforms.",
+    img: "./assets/learningc.jpg",
+  },
+  {
+    title: "Automotive Aesthetic Poster Series",
+    desc: "Cinematic automotive visuals crafted with controlled lighting, depth, and atmosphere.",
+    img: "./assets/posterdesign.jpg",
+  },
+  {
+    title: "Image Prompt Engineering System",
+    desc: "Structured prompt frameworks for repeatable, high-quality visual output.",
+    img: "./assets/promptsystem.jpg",
+  },
+  {
+    title: "Visual Composition Study",
+    desc: "Editing, layout rhythm, and visual hierarchy explorations for sharper visual control.",
+    img: "./assets/photoshop.jpg",
+  },
+];
 
-    // Tepadan tushganda shisha effektini kuchaytirish
-    if (currentScrollY > 50) {
-      nav.classList.add("is-scrolled");
-    } else {
-      nav.classList.remove("is-scrolled");
-    }
+// Render project cards
+const grid = document.getElementById("projectsGrid");
+grid.innerHTML = projects.map((p) => {
+  return `
+    <article class="project" tabindex="0" aria-label="${escapeHtml(p.title)}">
+      <div class="project-media">
+        <img src="${p.img}" alt="${escapeHtml(p.title)}" loading="lazy" decoding="async" />
+      </div>
+      <div class="project-body">
+        <h3 class="project-title">${escapeHtml(p.title)}</h3>
+        <p class="project-desc">${escapeHtml(p.desc)}</p>
+      </div>
+    </article>
+  `;
+}).join("");
 
-    lastScrollY = currentScrollY;
-  };
+// Navbar glass on scroll (snapRoot scroll container)
+function handleNavGlass(){
+  const y = snapRoot.scrollTop;
+  if (y > 8) navbar.classList.add("scrolled");
+  else navbar.classList.remove("scrolled");
+}
 
-  window.addEventListener("scroll", handleScroll, { passive: true });
+// Subtle hero parallax (only a small shift)
+function handleHeroParallax(){
+  const y = snapRoot.scrollTop;
+  // very subtle: max ~14px
+  const shift = Math.min(14, y * 0.06);
+  heroParallax.style.setProperty("--heroY", `${shift}px`);
+}
 
-  // --- SILLIQ SKROLL (Smooth Scroll) ---
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener("click", function (e) {
-      e.preventDefault();
-      const targetId = this.getAttribute("href");
-      if (targetId === "#") return;
-      const targetElement = document.querySelector(targetId);
-      if (targetElement) {
-        // Navigatsiya balandligini hisobga olish
-        const navHeight = getComputedStyle(document.documentElement).getPropertyValue('--nav-height').trim().replace('px','') || 90;
-        const targetPosition = targetElement.offsetTop - parseInt(navHeight) - 20;
-        window.scrollTo({
-          top: targetPosition,
-          behavior: "smooth"
-        });
-      }
-    });
+// Stacked overlay behavior using IntersectionObserver
+// Active section: panel enters (slide-up + opacity)
+// Before section: panel fades out, blurs, scales to 0.98
+const sections = Array.from(document.querySelectorAll(".section"));
+const io = new IntersectionObserver((entries) => {
+  // choose the most visible stage section
+  const visible = entries
+    .filter(e => e.isIntersecting)
+    .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+  if (!visible) return;
+
+  const activeEl = visible.target;
+
+  // mark active and before
+  let activeIndex = sections.indexOf(activeEl);
+  sections.forEach((sec, idx) => {
+    sec.classList.toggle("is-active", idx === activeIndex);
+    sec.classList.toggle("is-before", idx < activeIndex && sec.classList.contains("stage"));
   });
-
-  // --- TERMINAL PREVIEW (Suzuvchi Rasm) ---
-  // Faqat kompyuterda (hover bor joyda) ishlaydi
-  if (window.matchMedia("(hover: hover)").matches) {
-    const preview = document.querySelector(".terminal-preview");
-    const previewImg = document.getElementById("preview-img");
-    const dataRows = document.querySelectorAll(".data-row");
-    const terminalBody = document.querySelector(".terminal-body");
-
-    if (preview && previewImg && dataRows.length > 0) {
-      dataRows.forEach(row => {
-        row.addEventListener("mouseenter", () => {
-          const imgSrc = row.getAttribute("data-img");
-          if (imgSrc) {
-            previewImg.src = imgSrc;
-            preview.classList.add("is-active");
-          }
-        });
-
-        row.addEventListener("mouseleave", () => {
-          preview.classList.remove("is-active");
-        });
-      });
-
-      // Sichqoncha harakatini kuzatish va rasmni siljitish
-      terminalBody.addEventListener("mousemove", (e) => {
-        // Terminal oynasiga nisbatan koordinatalar
-        const rect = terminalBody.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        // Rasmni sichqonchadan biroz uzoqroqda ushlash
-        preview.style.transform = `translate(${x + 30}px, ${y - 100}px) scale(1)`;
-      });
-    }
-  }
-
-  // --- FORMA VA MODAL MANTIG'I ---
-  const form = document.getElementById("uplinkForm");
-  const modal = document.getElementById("modal");
-  const modalCloseBtns = document.querySelectorAll("[data-close]");
-
-  const openModal = () => {
-    modal.setAttribute("aria-hidden", "false");
-    body.style.overflow = "hidden"; // Modal ochiqligida skrollni bloklash
-  };
-
-  const closeModal = () => {
-    modal.setAttribute("aria-hidden", "true");
-    body.style.overflow = "";
-  };
-
-  modalCloseBtns.forEach(btn => btn.addEventListener("click", closeModal));
-
-  if (form) {
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const action = form.getAttribute("action");
-      const submitBtn = form.querySelector('button[type="submit"]');
-      const btnText = submitBtn.querySelector(".cyber-btn__text");
-      const originalText = btnText.textContent;
-
-      // Formspree ID tekshiruvi
-      if (action.includes("YOUR_FORMSPREE_ID")) {
-        alert("SYSTEM ERROR: Formspree ID not configured. Uplink failed.");
-        return;
-      }
-
-      // Tugma holatini o'zgartirish
-      submitBtn.disabled = true;
-      btnText.textContent = "TRANSMITTING...";
-
-      try {
-        const response = await fetch(action, {
-          method: "POST",
-          body: new FormData(form),
-          headers: { "Accept": "application/json" }
-        });
-
-        if (response.ok) {
-          form.reset();
-          openModal();
-        } else {
-          throw new Error("Transmission failed");
-        }
-      } catch (error) {
-        alert("UPLINK ERROR: Connection lost. Please attempt transmission via alternative channels (Telegram).");
-      } finally {
-        // Tugmani asl holiga qaytarish
-        submitBtn.disabled = false;
-        btnText.textContent = originalText;
-      }
-    });
-  }
+}, {
+  root: snapRoot,
+  threshold: [0.15, 0.35, 0.55, 0.75]
 });
+
+// Observe only stage sections for the overlay logic
+sections.forEach((sec) => io.observe(sec));
+
+// Modal logic
+const form = document.getElementById("contactForm");
+const modalBackdrop = document.getElementById("modalBackdrop");
+const closeModalBtn = document.getElementById("closeModal");
+
+function openModal(){
+  modalBackdrop.classList.add("show");
+  modalBackdrop.setAttribute("aria-hidden", "false");
+  closeModalBtn.focus();
+}
+function closeModal(){
+  modalBackdrop.classList.remove("show");
+  modalBackdrop.setAttribute("aria-hidden", "true");
+}
+closeModalBtn.addEventListener("click", closeModal);
+modalBackdrop.addEventListener("click", (e) => {
+  if (e.target === modalBackdrop) closeModal();
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && modalBackdrop.classList.contains("show")) closeModal();
+});
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  // Here you can plug in EmailJS / Formspree later.
+  form.reset();
+  openModal();
+});
+
+// Run
+snapRoot.addEventListener("scroll", () => {
+  handleNavGlass();
+  handleHeroParallax();
+}, { passive: true });
+
+// Initial state
+handleNavGlass();
+handleHeroParallax();
+
+// Helpers
+function escapeHtml(str){
+  return String(str)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
